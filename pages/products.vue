@@ -1,17 +1,19 @@
 <template>
   <Title>Productos</Title>
-  <div class="mb-16 mt-32 text-center">
-    <h2 class="text-center text-h5 font-serif font-bold text-gray-500">
-      Productos
-    </h2>
-    <div class="h-1 w-12 bg-primary mx-auto rounded-full"></div>
-  </div>
-  <section class="flex flex-wrap gap-10 justify-center">
-    <template v-if="!products">
-      <ProductSkeleton v-for="i in 4" />
-    </template>
-    <ProductCard v-for="(p, index) in products" :data="p" />
-  </section>
+  <main class="bg-gray-100 py-16 min-h-screen">
+    <div class="text-center bg-gray-100 my-16">
+      <h2 class="text-center text-h5 font-serif font-bold text-gray-500">
+        Productos
+      </h2>
+      <div class="h-1 w-12 bg-primary mx-auto rounded-full"></div>
+    </div>
+    <section class="flex flex-wrap gap-10 justify-center">
+      <template v-if="!products">
+        <ProductSkeleton v-for="i in 4" />
+      </template>
+      <ProductCard v-for="(p, index) in products" :data="p" />
+    </section>
+  </main>
 </template>
 
 <script setup lang="ts">

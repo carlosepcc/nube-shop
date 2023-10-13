@@ -21,7 +21,7 @@
           <q-separator dark v-if="i.separate" />
           <q-item v-ripple :to="i.to">
             <q-item-section avatar>
-              <q-icon :name="i.icon" />
+              <icon size="22" :name="i.icon" />
             </q-item-section>
             <q-item-section> {{ i.label }} </q-item-section>
           </q-item>
@@ -34,8 +34,8 @@
 const miniState = ref(false);
 const show = ref(false);
 const menuItems = [
-  { label: "Inicio", key: "home", to: "/", icon: "home" },
-  { label: "Productos", key: "products", to: "products", icon: "favorite" },
-  { label: "About", key: "about", to: "about", icon: "info", separate: true },
+  { label: "Inicio", key: "home", to: "/", icon: "ic:twotone-home" },
+  { label: "Productos", key: "products", to: "products", icon: "ic:twotone-shopping-bag" },
+  { label: "About", key: "about", to: "about", icon: "ic:twotone-info", separate: true },
 ];
 </script>

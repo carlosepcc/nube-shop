@@ -2,7 +2,7 @@
 .p-16.pb-36.flex.flex-col.items-center.gap-24
       .flex.flex-col.items-center.gap-6(v-for="item in items" :key="item.id" )
         .text-5xl.opacity-70(class="contrast-[85%]") {{ item.emoji }}
-        p.text-center.text-gray-600.text-lg {{ item.text }}
+        p.text-center.text-gray-500.text-lg.max-w-sm {{ item.text }}
 </template>
 
 <script setup lang="ts">

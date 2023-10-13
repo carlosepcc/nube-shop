@@ -1,5 +1,5 @@
 <template>
-  <q-card class="my-card w-60" flat bordered>
+  <q-card class="my-card w-60 flex flex-col" flat bordered>
     <!-- <q-img :src="images[0].image_url || '/isotype.svg'" /> -->
     <q-carousel
       swipeable
@@ -22,7 +22,7 @@
         {{ description }}
       </p>
     </q-card-section>
-
+    <q-space />
     <q-card-actions>
       <q-btn
         :icon-right="'keyboard_arrow_' + (showMore ? 'up' : 'down')"
