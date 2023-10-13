@@ -8,7 +8,7 @@ div.flex.flex-col.items-center.justify-center.h-full.pt-20.bg-gradient-to-tr.fro
         q-icon(size="lg" class="text-[#fff2]" name="expand_more")
     SectionValues.py-24
 
-    footer(class="bg-gray-900 p-8 text-gray-400 text-center")
+    footer(class="bg-gray-900 p-8 text-gray-400 text-center w-full")
         p Perversionis
         sup ©
         | 2023 - Presente

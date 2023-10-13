@@ -8,18 +8,21 @@
     :width="200"
     :breakpoint="500"
     bordered
-    class="bg-gray-900"
-    :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-1'"
     dark
   >
     <q-scroll-area
       class="fit bg-gray-900"
-      :horizontal-thumb-style="{ opacity: 0 }"
+      :class="{ 'bg-gray-800': $route.name == 'index' }"
     >
       <q-list padding>
         <template v-for="i in menuItems" :key="i.label">
           <q-separator dark v-if="i.separate" />
-          <q-item v-ripple :to="i.to">
+          <q-item
+            v-ripple
+            :to="i.to"
+            :href="i.href"
+            :target="i.href && '_blank'"
+          >
             <q-item-section avatar>
               <icon size="22" :name="i.icon" />
             </q-item-section>
@@ -35,7 +38,25 @@ const miniState = ref(false);
 const show = ref(false);
 const menuItems = [
   { label: "Inicio", key: "home", to: "/", icon: "ic:twotone-home" },
-  { label: "Productos", key: "products", to: "products", icon: "ic:twotone-shopping-bag" },
-  { label: "About", key: "about", to: "about", icon: "ic:twotone-info", separate: true },
+  {
+    label: "Productos",
+    key: "products",
+    to: "products",
+    icon: "ic:twotone-shopping-bag",
+  },
+  {
+    label: "Acerca de",
+    key: "about",
+    to: "about",
+    icon: "ic:twotone-info",
+    separate: true,
+  },
+
+  {
+    label: "WhatsApp",
+    key: "wa",
+    href: "https://chat.whatsapp.com/KkaBYppzfYaCpXtdRKBDmC",
+    icon: "ph:whatsapp-logo-duotone",
+  },
 ];
 </script>

@@ -1,6 +1,9 @@
 <template>
   <q-layout view="hHh lpR fFf" class="h-screen">
-    <q-header class="bg-gray-900 backdrop-blur-xl">
+    <q-header
+      class="bg-gray-900 backdrop-blur-xl"
+      :class="{ 'bg-transparent': $route.name == 'index' }"
+    >
       <q-toolbar>
         <q-avatar>
           <img
@@ -31,3 +34,9 @@ const menuOpen = ref(false);
 
 const toggleMenu = () => (menuOpen.value = !menuOpen.value);
 </script>
+<style>
+:root {
+  --color-whatsapp-1: #00a884;
+  --color-whatsapp: #128c7e;
+}
+</style>
