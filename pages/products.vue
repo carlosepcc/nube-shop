@@ -8,6 +8,16 @@
       <div class="h-1 w-12 bg-primary mx-auto rounded-full"></div>
     </div>
     <section class="flex flex-wrap gap-10 justify-center">
+      <dev-only>
+        <pre
+          class="w-80 h-80 overflow-auto"
+          :class="{ 'text-red-600': error, 'text-green-600': status == 200 }"
+        >
+          Status: {{ status }}
+          Error: {{ error ?? "No hay errores" }}
+          {{ products }}
+        </pre>
+      </dev-only>
       <template v-if="!products">
         <ProductSkeleton v-for="i in 4" />
       </template>
@@ -19,7 +29,7 @@
 <script setup lang="ts">
 const supabase = useSupabaseClient();
 
-let {
+const {
   data: products,
   error,
   status,
@@ -28,22 +38,5 @@ let {
   .from("product")
   .select("*, product_price(price,currency_code), product_image(image_url)");
 
-const productsMock: Product[] = [
-  {
-    name: "Engatusadora floral",
-    pricing: [
-      { price: 20, currency: { code: "mlc" } },
-
-      { price: 4500, currency: { code: "cup" } },
-    ],
-  },
-  {
-    name: "Traje de sirvienta",
-    pricing: [{ price: 32, currency: { code: "mlc" } }],
-  },
-  {
-    name: "Traje de policia",
-    pricing: [{ price: 27, currency: { code: "mlc" } }],
-  },
-];
+watch([products], () => console.table(products));
 </script>

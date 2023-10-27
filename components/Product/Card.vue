@@ -64,22 +64,26 @@
           {{ description }}
         </q-card-section> -->
         <q-card-section class="text-center">
-          <q-chip
-            class="text-[#fffe] font-bold"
-            v-for="i in pricing"
-            :color="
-              i.currency_code == 'MLC'
-                ? 'primary'
-                : i.currency_code == 'USD'
-                ? 'teal'
-                : 'brown'
-            "
-          >
-            <span>
-              {{ i.price.toPrecision(4) }}
-              <small class="font-normal uppercase">{{ i.currency_code }}</small>
-            </span>
-          </q-chip>
+          <template v-if="pricing">
+            <q-chip
+              class="text-[#fffe] font-bold"
+              v-for="i in pricing"
+              :color="
+                i.currency_code == 'MLC'
+                  ? 'primary'
+                  : i.currency_code == 'USD'
+                  ? 'teal'
+                  : 'brown'
+              "
+            >
+              <span>
+                {{ i.price.toPrecision(4) }}
+                <small class="font-normal uppercase">{{
+                  i.currency_code
+                }}</small>
+              </span>
+            </q-chip>
+          </template>
           <p class="text-gray-500 mt-2">
             Se acepta el pago en otras monedas no listadas aquí
           </p>
