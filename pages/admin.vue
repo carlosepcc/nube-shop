@@ -1,7 +1,9 @@
 <script setup lang="ts">
 const supabase = useSupabaseClient();
+const $q = useQuasar();
 type CurrencyCode = "USD" | "MLC" | "CUP" | "EUR";
 type Product = {
+  id?: string;
   title: string | null;
   description: string | null;
   price: number;
@@ -124,8 +126,8 @@ const handleFormSubmit = async () => {
     throw error;
   }
 };
-
-// const handleProductUpdate = async (product.id, updatedProduct) => {
+const updateProduct = (p: Product) => {};
+// const handleProductUpdate = async (updatedProduct: Product) => {
 //   try {
 //     await supabase
 //       .from("product")
@@ -133,7 +135,7 @@ const handleFormSubmit = async () => {
 //         title: updatedProduct.title,
 //         description: updatedProduct.description,
 //       })
-//       .eq("id", product.id);
+//       .eq("id", updatedProduct.id);
 
 //     if (updatedProduct.image) {
 //       const { data: file, error: uploadError } = await supabase.storage
@@ -150,8 +152,8 @@ const handleFormSubmit = async () => {
 
 //       const { error: imageUpdateError } = await supabase
 //         .from("product_image")
-//         .update({ image_url: file.Key })
-//         .eq("product_id", product.id);
+//         .update({ image_url: file.path })
+//         .eq("product_id", updatedProduct.id);
 
 //       if (imageUpdateError) {
 //         console.error("Image update error:", imageUpdateError);
@@ -163,19 +165,6 @@ const handleFormSubmit = async () => {
 //     await fetchProducts();
 //   } catch (error) {
 //     console.error("Product update error:", error);
-//     throw error;
-//   }
-// };
-
-// const handleProductDelete = async (product.id) => {
-//   try {
-//     await supabase.from("product").delete().eq("id", product.id);
-//     await supabase.from("product_image").delete().eq("product_id", product.id);
-
-//     // Refresh the product list
-//     await fetchProducts();
-//   } catch (error) {
-//     console.error("Product delete error:", error);
 //     throw error;
 //   }
 // };
@@ -202,6 +191,53 @@ onMounted(fetchProducts);
 const handleFileSelect = (event) => {
   const file = event.target.files[0];
   newProduct.value.image = file;
+};
+
+const handleProductDelete = async (id: string) => {
+  try {
+    await supabase.from("product").delete().eq("id", id);
+    await supabase.from("product_image").delete().eq("product_id", id);
+    await supabase.from("product_price").delete().eq("product_id", id);
+
+    // Refresh the product list
+    await fetchProducts();
+  } catch (error) {
+    console.error("Product delete error:", error);
+    throw error;
+  }
+};
+
+const deleteProduct = async (p: Product) => {
+  let n = Notify.create({
+    timeout: 30000,
+    type: "ongoing",
+    message: `Esperando confirmación para eliminar ${p.title}`,
+    actions: [{ label: "Ocultar", color: "white" }],
+  });
+  console.log($q);
+  $q.dialog({
+    title: `Confirmar eliminación`,
+    message: `${p.title} se eliminará para siempre del catálogo.
+    ¿Seguro? Esta acción no se puede deshacer.`,
+    cancel: { label: "Cancelar", flat: true },
+    persistent: true,
+
+    ok: { color: "red", flat: true, label: "Eliminar" },
+  })
+    .onOk(async () => {
+      n({ caption: "Eliminando", spinner: true });
+      await handleProductDelete(p.id);
+      n({ caption: "Eliminado, actualizando...", spinner: true });
+
+      await fetchProducts();
+      n({ caption: "Catálogo actualizado...", spinner: true });
+    })
+    .onCancel(() => {
+      // console.log('>>>> Cancel')
+    })
+    .onDismiss(() => {
+      // console.log('I am triggered on both OK and Cancel')
+    });
 };
 </script>
 
@@ -276,7 +312,7 @@ const handleFileSelect = (event) => {
             >
               <template v-slot:loading>
                 <q-spinner-hourglass class="on-left" />
-                Añadiendo...
+                <span>{{ addProductRequest.message }}...</span>
               </template>
             </q-btn>
           </q-card-actions>
@@ -289,7 +325,34 @@ const handleFileSelect = (event) => {
         <template v-if="!products">
           <ProductSkeleton v-for="i in 4" />
         </template>
-        <ProductCard v-for="(p, index) in products" :data="p" />
+        <ProductCard v-for="(p, index) in products" :data="p">
+          <div class="absolute top-0 right-0">
+            <q-btn unelevated icon="more_vert" round>
+              <q-menu>
+                <q-list>
+                  <q-item clickable @click="deleteProduct(p)">
+                    <q-item-section avatar>
+                      <q-icon color="negative" name="delete" />
+                    </q-item-section>
+
+                    <q-item-section>
+                      <q-item-label>Eliminar</q-item-label>
+                    </q-item-section>
+                  </q-item>
+                  <q-item disable clickable @click="updateProduct(p)">
+                    <q-item-section avatar>
+                      <q-icon color="orange" name="edit" />
+                    </q-item-section>
+
+                    <q-item-section>
+                      <q-item-label>Editar</q-item-label>
+                    </q-item-section>
+                  </q-item>
+                </q-list>
+              </q-menu>
+            </q-btn>
+          </div>
+        </ProductCard>
       </div>
     </div>
   </section>

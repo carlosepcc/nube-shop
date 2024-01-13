@@ -90,6 +90,7 @@
         </q-card-section>
       </div>
     </q-slide-transition>
+    <slot />
   </q-card>
 </template>
 <script setup lang="ts">

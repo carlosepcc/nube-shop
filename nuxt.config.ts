@@ -25,7 +25,10 @@ export default defineNuxtConfig({
         positive: '#7BFF84',
 
       }
-    }
+    },
+    plugins: [
+      'Dialog', 'Notify'
+    ]
   },
   css: [
     // 'vuetify/styles/main.sass',
