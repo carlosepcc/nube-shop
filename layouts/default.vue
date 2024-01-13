@@ -9,7 +9,7 @@
           <img
             width="100px"
             class="object-contain"
-            src="isotype.svg"
+            src="/isotype.svg"
             alt="Perversionis logo"
           />
         </q-avatar>

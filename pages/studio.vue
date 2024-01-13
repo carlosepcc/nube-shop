@@ -21,7 +21,7 @@
     <div class="flex gap-4">
       <q-card
         ref="memeCard"
-        class="bg-gray-900 text-gray-300 w-[clamp(40px,90vw,512px)] h-fit"
+        class="bg-gray-900 text-gray-300 w-[clamp(40px,90vw,512px)] h-fit pt-2"
       >
         <q-item class="border-none border-gray-700">
           <!-- <q-item-section avatar> 
@@ -43,20 +43,18 @@
           contain
           :src="imageUrl || placeholderImg"
         />
-        <q-item class="border-none border-gray-700">
+        <div class="border-none border-gray-700 px-1 pl-2 py-2 xs:p-4">
           <div class="flex w-full justify-between gap-4 pr-2">
-            <div class="flex">
-              <q-item-section avatar>
-                <q-avatar>
-                  <img src="/isotype.svg" />
-                </q-avatar>
-              </q-item-section>
+            <div class="flex gap-2">
+              <q-avatar size="sm">
+                <img src="/isotype.svg" />
+              </q-avatar>
               <q-item-section>
                 <q-item-label contenteditable class="font-bold"
                   >Perversionis</q-item-label
                 >
                 <q-item-label contenteditable caption class="text-gray-400"
-                  >Sex shop - Pinar del Río
+                  >Sex shop
                 </q-item-label>
               </q-item-section>
             </div>
@@ -74,7 +72,7 @@
               </q-item-section>
             </div>
           </div>
-        </q-item>
+        </div>
       </q-card>
       <!-- <q-btn @click="downloadViewAsImage(memeCard.innerHTML)">Descargar</q-btn> -->
     </div>
