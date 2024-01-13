@@ -1,5 +1,7 @@
 <template>
-  <div class="flex flex-col gap-8 p-4 items-center h-full justify-center pt-20">
+  <div
+    class="flex flex-col gap-8 p-4 pb-36 items-center h-full justify-center pt-20"
+  >
     <Title>Productos</Title>
     <div>
       <h2 class="text-center text-h5 font-serif font-bold text-gray-500">
@@ -15,17 +17,13 @@
         class="hidden"
         ref="imageInput"
       />
-
-      <q-page-sticky position="bottom-right" :offset="[18, 18]">
-        <q-btn fab icon="image" color="accent" />
-      </q-page-sticky>
     </div>
     <div class="flex gap-4">
       <q-card
         ref="memeCard"
-        class="bg-gray-900 text-gray-300 w-[clamp(40px,60vw,512px)] h-fit"
+        class="bg-gray-900 text-gray-300 w-[clamp(40px,90vw,512px)] h-fit"
       >
-        <q-item>
+        <q-item class="border-none border-gray-700">
           <!-- <q-item-section avatar> 
             <q-avatar> 
               <img src="/isotype.svg" class="rounded max-h-[60vh]" /> 
@@ -45,8 +43,8 @@
           contain
           :src="imageUrl || placeholderImg"
         />
-        <q-item>
-          <div class="flex w-full justify-between pr-2">
+        <q-item class="border-none border-gray-700">
+          <div class="flex w-full justify-between gap-4 pr-2">
             <div class="flex">
               <q-item-section avatar>
                 <q-avatar>
@@ -80,6 +78,10 @@
       </q-card>
       <!-- <q-btn @click="downloadViewAsImage(memeCard.innerHTML)">Descargar</q-btn> -->
     </div>
+
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-btn @click="imageInput.click()" fab icon="image" color="accent" />
+    </q-page-sticky>
   </div>
 </template>
 <script setup lang="ts">

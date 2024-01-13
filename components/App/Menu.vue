@@ -44,19 +44,25 @@ const menuItems = [
     to: "products",
     icon: "ic:twotone-shopping-bag",
   },
-  {
-    label: "Acerca de",
-    key: "about",
-    to: "about",
-    icon: "ic:twotone-info",
-    separate: true,
-  },
 
   {
     label: "WhatsApp",
     key: "wa",
     href: "https://chat.whatsapp.com/KkaBYppzfYaCpXtdRKBDmC",
     icon: "ph:whatsapp-logo-duotone",
+  },
+  {
+    label: "Estudio",
+    key: "studio",
+    to: "studio",
+    icon: "ic:twotone-image",
+    separate: true,
+  },
+  {
+    label: "Acerca de",
+    key: "about",
+    to: "about",
+    icon: "ic:twotone-info",
   },
 ];
 </script>
