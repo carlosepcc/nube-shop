@@ -12,7 +12,15 @@
       <q-carousel-slide v-for="i in images" :name="1" :img-src="i.image_url" />
     </q-carousel>
     <q-card-section>
-      <div class="text-overline text-orange-9">{{ category ?? "" }}</div>
+      <div class="-mx-2 -mt-1">
+        <template v-for="tag in tags">
+          <q-chip color="pink" text-color="white">{{ text(tag) }}</q-chip>
+        </template>
+      </div>
+      <div class="text-overline text-orange-9">
+        <!-- <span v-for="tag in tags">{{ tag }}&nbsp;</span> -->
+      </div>
+
       <p
         class="text-lg text-primary brightness-[40%] font-bold q-mt-sm q-mb-xs"
       >
@@ -37,15 +45,14 @@
           :nme="showMore ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
           name="info_outline"
         /> -->
-        <p v-if="pricing" class="font-bold text-lg">
+        <p v-if="pricing && pricing[0]" class="font-bold text-lg">
           {{
             pricing[0]?.currency_code == "USD"
-              ? (pricing[0]?.price * 1.15).toPrecision(4)
-              : pricing[0]?.price.toPrecision(4)
+              ? price(pricing[0]?.price * 1.15)
+              : price(pricing[0]?.price)
           }}
           <small class="uppercase font-normal">
-            MLC
-            <!-- {{ pricing[0]?.currency_code }} -->
+            {{ pricing[0]?.currency_code.toUpperCase() }}
           </small>
         </p>
       </q-btn>
@@ -104,6 +111,7 @@ const {
   product_price: pricing,
   product_image: images,
   category,
+  tags,
 } = props.data;
 const showMore = ref(false);
 const messageText = "Hola, tengo interés en el producto: " + props.data.title;

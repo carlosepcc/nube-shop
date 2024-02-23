@@ -25,7 +25,7 @@
       >
         <q-item class="border-none border-gray-700">
           <!-- <q-item-section avatar> 
-            <q-avatar> 
+            <q-avatar square> 
               <img src="/isotype.svg" class="rounded max-h-[60vh]" /> 
             </q-avatar> 
           </q-item-section> -->
@@ -46,7 +46,7 @@
         <div class="border-none border-gray-700 px-1 pl-2 py-2 xs:p-4">
           <div class="flex w-full justify-between gap-4 pr-2">
             <div class="flex gap-2">
-              <q-avatar size="sm">
+              <q-avatar square size="sm">
                 <img src="/isotype.svg" />
               </q-avatar>
               <q-item-section>
