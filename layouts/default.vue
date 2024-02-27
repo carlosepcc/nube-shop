@@ -5,12 +5,12 @@
       :class="{ 'bg-transparent': $route.name == 'index' }"
     >
       <q-toolbar>
-        <q-avatar>
+        <q-avatar square>
           <img
             width="100px"
             class="object-contain"
             src="/isotype.svg"
-            alt="Perversionis logo"
+            alt="P"
           />
         </q-avatar>
         <q-toolbar-title
