@@ -1,6 +1,13 @@
 <template>
   <Title>Productos</Title>
-  <q-pull-to-refresh @refresh="fetchProducts">
+  <q-pull-to-refresh
+    @refresh="
+      (done) => {
+        fetchProducts();
+        done();
+      }
+    "
+  >
     <main class="bg-gray-100 py-16 min-h-screen">
       <div class="text-center bg-gray-100 my-16">
         <h2 class="text-center text-h5 font-serif font-bold text-gray-500">
@@ -29,7 +36,7 @@
         <ProductCard v-for="(p, index) in pr.products" :data="p" />
       </section>
     </main>
-    {{ pr }}
+    <dev-only>{{ pr }}</dev-only>
   </q-pull-to-refresh>
 </template>
 
@@ -43,14 +50,13 @@ const productsQuery = supabase
 
 // const { data: products, error, status, statusText } = await productsQuery;
 
-const fetchProducts = async (done: Function) => {
+const fetchProducts = async () => {
   const { data, error, status } = await productsQuery;
   pr.value = {
     products: data,
     error,
     status,
   };
-  done();
 };
 onMounted(fetchProducts);
 watch([pr], () => console.table(pr.value.products));
