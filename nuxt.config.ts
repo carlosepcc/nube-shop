@@ -65,4 +65,13 @@ export default defineNuxtConfig({
   supabase: {
     redirect: false,
   },
+  routeRules: {
+    "/": { redirect: "/products" },
+    // About page pre-rendered at build time
+    "/about": { prerender: true },
+    "/studio": { prerender: true },
+    // Products page generated on demand, revalidates in background, cached until API response changes
+    "/products": { swr: true },
+    "/products/**": { swr: 21600 },//seconds
+  },
 });
