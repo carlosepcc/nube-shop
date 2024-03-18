@@ -18,6 +18,27 @@
         >
           <nuxt-link to="/">Perversionis</nuxt-link>
         </q-toolbar-title>
+        <!-- {
+    label: "WhatsApp",
+    key: "wa",
+    href: "https://chat.whatsapp.com/KkaBYppzfYaCpXtdRKBDmC",
+    icon: "ph:whatsapp-logo-duotone",
+  } -->
+        <q-btn
+          href="https://chat.whatsapp.com/KkaBYppzfYaCpXtdRKBDmC"
+          target="_blank"
+          dense
+          flat
+          round
+          class="mx-4"
+        >
+          <icon
+            size="22"
+            name="ph:whatsapp-logo-duotone"
+            class="overflow-hidden"
+          />
+          <q-badge floating rounded>1</q-badge>
+        </q-btn>
         <q-btn dense flat round icon="menu" @click="toggleMenu" />
       </q-toolbar>
     </q-header>

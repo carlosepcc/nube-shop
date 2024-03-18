@@ -1,7 +1,12 @@
 <template>
-  <q-card class="my-card w-60 flex flex-col" flat bordered>
+  <q-card
+    class="my-card w-[clamp(64px,40vw,250px)] flex sm:flex-col"
+    flat
+    bordered
+  >
     <!-- <q-img :src="images[0].image_url || '/isotype.svg'" /> -->
-    <NuxtPicture
+    <NuxtImg
+      class="aspect-[4/3] max-h-44 object-cover"
       v-if="images[0]"
       format="avif,webp"
       :src="images[0].image_url"
@@ -11,7 +16,7 @@
     <q-card-section>
       <div class="-mx-2 -mt-1">
         <template v-for="tag in tags">
-          <q-chip color="pink" text-color="white">{{ text(tag) }}</q-chip>
+          <q-chip color="pink-1" text-color="secondary">{{ text(tag) }}</q-chip>
         </template>
       </div>
       <div class="text-overline text-orange-9">
@@ -23,7 +28,9 @@
       >
         {{ title }}
       </p>
-      <p class="text-caption text-gray-500">
+      <p
+        class="text-caption text-gray-500 max-h-24 overflow-y-scroll [scrollbar-width:none]"
+      >
         {{ description }}
       </p>
     </q-card-section>
@@ -98,7 +105,7 @@
   </q-card>
 </template>
 <script setup lang="ts">
-import { Product } from "types";
+import type { Product } from "types";
 const props = defineProps<{
   data: Product;
 }>();
