@@ -15,6 +15,4 @@ div.flex.flex-col.items-center.justify-center.h-full.pt-20.bg-gradient-to-tr.fro
         p Todos los derechos reservados
 </template>
 
-<script setup lang="ts">
-navigateTo({ name: "products" });
-</script>
+<script setup lang="ts"></script>

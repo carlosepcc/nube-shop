@@ -41,12 +41,15 @@
 </template>
 
 <script setup lang="ts">
+import type { ProductInfo } from "types";
 const supabase = useSupabaseClient();
-const products = ref([]);
+const products = ref<ProductInfo[] | null>(null);
 const error = ref(null);
-const status = ref(null);
+const status = ref<number | null>(null);
+const fetching = ref(false);
 
 const fetchProducts = async () => {
+  fetching.value = true;
   try {
     const {
       data,
@@ -57,16 +60,20 @@ const fetchProducts = async () => {
       .select(
         "*, product_price(price,currency_code), product_image(image_url)"
       );
-
-    products.value = data;
-    error.value = fetchError;
-    status.value = fetchStatus;
+    if (data) {
+      products.value = data;
+      error.value = fetchError;
+      status.value = fetchStatus;
+    }
   } catch (err) {
+    fetching.value = false;
     error.value = err;
   }
 };
 
-onMounted(fetchProducts);
+onMounted(() => {
+  if (!products.value?.length) fetchProducts();
+});
 
 watch(products, () => console.table(products.value));
 </script>
