@@ -1,16 +1,13 @@
 <template>
   <q-card class="my-card w-60 flex flex-col" flat bordered>
     <!-- <q-img :src="images[0].image_url || '/isotype.svg'" /> -->
-    <q-carousel
-      swipeable
-      animated
-      v-model="currentImage"
-      infinite
-      autoplay
-      height="200px"
-    >
-      <q-carousel-slide v-for="i in images" :name="1" :img-src="i.image_url" />
-    </q-carousel>
+    <NuxtPicture
+      v-if="images[0]"
+      format="avif,webp"
+      :src="images[0].image_url"
+      :placeholder="[50, 25, 75, 5]"
+    />
+
     <q-card-section>
       <div class="-mx-2 -mt-1">
         <template v-for="tag in tags">

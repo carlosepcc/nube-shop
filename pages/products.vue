@@ -15,49 +15,58 @@
         </h2>
         <div class="h-1 w-12 bg-primary mx-auto rounded-full"></div>
       </div>
+      <dev-only>
+        <pre
+          class="overflow-auto"
+          :class="{
+            'text-red-600': error,
+            'text-green-600': status == 200,
+          }"
+        >
+          Status: {{ status }}
+          Error: {{ error ?? "No hay errores" }}
+        </pre>
+      </dev-only>
       <section class="flex flex-wrap gap-10 justify-center">
-        <dev-only>
-          <pre
-            class="w-80 h-80 overflow-auto"
-            :class="{
-              'text-red-600': pr.error,
-              'text-green-600': pr.status == 200,
-            }"
-          >
-          Status: {{ pr.status }}
-          Error: {{ pr.error ?? "No hay errores" }}
-          {{ pr.products }}
-        </pre
-          >
-        </dev-only>
-        <template v-if="!(pr.products || pr.error)">
+        <template v-if="!(products || error)">
           <ProductSkeleton v-for="i in 4" />
         </template>
-        <ProductCard v-for="(p, index) in pr.products" :data="p" />
+        <ProductCard v-for="(p, index) in products" :data="p" />
       </section>
     </main>
-    <dev-only>{{ pr }}</dev-only>
+    <dev-only>
+      <pre>{{ products }}</pre>
+    </dev-only>
   </q-pull-to-refresh>
 </template>
 
 <script setup lang="ts">
 const supabase = useSupabaseClient();
-
-const pr = ref({});
-const productsQuery = supabase
-  .from("product")
-  .select("*, product_price(price,currency_code), product_image(image_url)");
-
-// const { data: products, error, status, statusText } = await productsQuery;
+const products = ref([]);
+const error = ref(null);
+const status = ref(null);
 
 const fetchProducts = async () => {
-  const { data, error, status } = await productsQuery;
-  pr.value = {
-    products: data,
-    error,
-    status,
-  };
+  try {
+    const {
+      data,
+      error: fetchError,
+      status: fetchStatus,
+    } = await supabase
+      .from("product")
+      .select(
+        "*, product_price(price,currency_code), product_image(image_url)"
+      );
+
+    products.value = data;
+    error.value = fetchError;
+    status.value = fetchStatus;
+  } catch (err) {
+    error.value = err;
+  }
 };
+
 onMounted(fetchProducts);
-watch([pr], () => console.table(pr.value.products));
+
+watch(products, () => console.table(products.value));
 </script>
