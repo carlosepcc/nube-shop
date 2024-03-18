@@ -5,7 +5,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'nuxt-quasar-ui',
     '@nuxtjs/supabase',
-    'nuxt-icon'
+    'nuxt-icon',
+    '@nuxt/image'
     //'@vite-pwa/nuxt'
 
   ],
